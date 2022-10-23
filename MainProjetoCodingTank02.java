@@ -6,94 +6,71 @@ public class MainProjetoCodingTank02 {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         Double temp = 0.0D;
+        int n = 0;
         Double somaEntrada = 0.0D;
         Double somaSaida = 0.0D;
-        int contador = 0;
         Double mediaEntrada = 0.0D;
         Double mediaSaida = 0.0D;
-        int entradaT;
-        int saidaT;
-    try{
-            System.out.println("Digite a quantidade de entradas as serem transformadas:");
-            int n = sc.nextInt();
-            System.out.println("Digite o tipo de temperatura para ser convertido(1-C/2-F/3-K): ");
-            entradaT = sc.nextInt();
-            System.out.println("Digite o tipo de temperatura para qual deseja converter(1-C/2-F/3-K): ");
-            saidaT = sc.nextInt();
-            if(((entradaT >= 1) && (entradaT<=3)) && ((saidaT>= 1) && (saidaT <= 3))){
-                for (int i = 0; i < n; i++) {
-                    System.out.printf("Digite o valor da %d temperatura: ", i+1);
-                    temp = sc.nextDouble();
-                    somaEntrada = somaEntrada + temp;
-                    contador++;
+        char entradaT = ' ';
+        char saidaT = ' ';
+        Double[] temperatura;
+        Double[] convertida;
+try {
+    System.out.println("Digite a quantidade de entradas as serem transformadas:");
+    n = sc.nextInt();
+    System.out.println("Digite o tipo de temperatura para ser convertido(1-C/2-F/3-K): ");
+    entradaT = sc.next().charAt(0);
+    System.out.println("Digite o tipo de temperatura para qual deseja converter(1-C/2-F/3-K): ");
+    saidaT = sc.next().charAt(0);
+} catch(Throwable e){
+    System.out.println("erro do tipo " + e +". Reinicie o Programa.");
+}finally {
+    temperatura = new Double[n];
+    convertida = new Double[n];
 
-                    switch (entradaT) {
-                        case 1:
-                            if (saidaT == 3) {
-                                celsiusParaKelvin(temp);
-                                System.out.printf("Valor digitado em Celsius: %.2f ºC%n", temp);
-                                System.out.printf("Valor convertido de Celsius para Kelvin: %.2f ºK%n",
-                                        celsiusParaKelvin(temp));
-                                somaSaida += celsiusParaKelvin(temp);
-                            } else if (saidaT == 2) {
-                                celsiusParaFahrenheit(temp);
-                                System.out.printf("Valor em graus Celsius: %.2f ºC %n", temp);
-                                System.out.printf("Valor convertido de Celsius para fahrenheit: %.2f ºF%n",
-                                        celsiusParaFahrenheit(temp));
-                                somaSaida += celsiusParaFahrenheit(temp);
-                            } else {
-                                System.out.println("Impossivel converter temperaturas iguais! Reinicie o programa."); return;
-                            }
-                            break;
-                        case 2:
-                            if (saidaT == 1) {
-                                fahrenheitParaCelsius(temp);
-                                System.out.printf("Valor digitado em Fahrenheit: %.2f ºF%n", temp);
-                                System.out.printf("Valor convertido de Farenheit para Celsius: %.2f ºC%n",
-                                        fahrenheitParaCelsius(temp));
-                                somaSaida += fahrenheitParaCelsius(temp);
-                            } else if (saidaT == 3) {
-                                fahrenheitParaKelvin(temp);
-                                System.out.printf("Valor digitado em Fahrenheit: %.2f ºK%n", temp);
-                                System.out.printf("Valor convertido de Fahrenheit para Kelvin: %.2f ºF%n",
-                                        fahrenheitParaKelvin(temp));
-                                somaSaida += fahrenheitParaKelvin(temp);
+    for (int i = 0; i < temperatura.length; i++) {
+        System.out.printf("Digite o valor da %d temperatura: ", i + 1);
+        temp = sc.nextDouble();
+        temperatura[i] = temp;
+        convertida[i] = converterTemperatura(temp, entradaT, saidaT);
+        System.out.printf("Valor digitado em %c: %.2f º%c%n", entradaT, temp, entradaT);
+        System.out.printf("Valor convertido para %c: %.2f º%c%n", saidaT, convertida[i], saidaT);
+    }
+    for (int i = 0; i < convertida.length; i++) {
+        somaEntrada += temperatura[i];
+        somaSaida += convertida[i];
+    }
+    mediaEntrada = somaEntrada / n;
+    mediaSaida = somaSaida / n;
+    System.out.printf("Media das Temperaturas de entrada: %.2f %c%n", mediaEntrada, entradaT);
+    System.out.printf("Media das Temperaturas de saida: %.2f %c%n", mediaSaida, saidaT);
+}
+    }
 
-                            } else {
-                                System.out.println("Impossivel converter temperaturas iguais! Reinicie o programa."); return;
-                            }
-                            break;
-                        case 3:
-                            if (saidaT == 1) {
-                                kelvinParaCelsius(temp);
-                                System.out.printf("Valor digitado em Kelvin: %.2f ºK%n", temp);
-                                System.out.printf("Valor convertido de Kelvin para Celsius: %.2f ºC%n",
-                                        kelvinParaCelsius(temp));
-                                somaSaida += kelvinParaCelsius(temp);
-                            } else if (saidaT == 2) {
-                                kelvinParaFahrenheit(temp);
-                                System.out.printf("Valor digitado em Kelvin: %.2f ºF%n", temp);
-                                System.out.printf("Valor convertido de Kelvin para Fahrenheit: %.2f ºK%n",
-                                        kelvinParaFahrenheit(temp));
-                                somaSaida += kelvinParaFahrenheit(temp);
-                            } else {
-                                System.out.println("Impossivel converter temperaturas iguais! Reinicie o programa."); return;
-                            }
-                    }
+    private static Double converterTemperatura(Double temp, char entradaT, char saidaT) {
+        switch (entradaT) {
+            case 'C':
+                if (saidaT == 'K') {
+                    return celsiusParaKelvin(temp);
+                } else if (saidaT == 'F') {
+                   return celsiusParaFahrenheit(temp);
                 }
-            }
-            else{
-                System.out.println("Entrada de valores invalidos!Reiniciar programa.");
-                return;
-            }
-
-        mediaEntrada = somaEntrada / contador;
-        mediaSaida = somaSaida / contador;
-        System.out.printf("Media das Temperaturas de entrada: %.2f %n", mediaEntrada);
-        System.out.printf("Media das Temperaturas de saida: %.2f %n", mediaSaida);
-    }catch(Throwable e) {
-        System.out.println("Erro: " + e + ".\nReiniciar programa.");
-        }
+                break;
+            case 'F':
+                if (saidaT == 'C') {
+                   return fahrenheitParaCelsius(temp);
+                } else if (saidaT == 'K') {
+                  return fahrenheitParaKelvin(temp);
+                }
+                break;
+            case 'K':
+                if (saidaT == 'C') {
+                   return kelvinParaCelsius(temp);
+                } else if (saidaT == 'F') {
+                    return kelvinParaFahrenheit(temp);
+                }
+                break;
+        } return temp;
     }
     private static final Double FATOR1 =  9.0D / 5.0D;
     private static final Double FATOR2 = 32D;
