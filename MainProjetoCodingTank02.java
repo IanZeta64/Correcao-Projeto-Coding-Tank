@@ -28,13 +28,9 @@ public static void main(String[] args) {
             return;
         }
         if (codEntrada >= 1 && codEntrada <= 3) {
-            if (codEntrada == 1) {
-                entradaT = 'C';
-            } else if (codEntrada == 2) {
-                entradaT = 'F';
-            } else {
-                entradaT = 'K';
-            }
+            if (codEntrada == 1) {entradaT = 'C';}
+            else if (codEntrada == 2) {entradaT = 'F';}
+            else {entradaT = 'K';}
         } else {
             System.out.println("Erro de entrada de dados. Reinicie o Programa.");
             return;
@@ -47,13 +43,9 @@ public static void main(String[] args) {
         System.out.println("Digite o tipo de temperatura para qual deseja converter. \n1-C\n2-F\n3-K: ");
         codSaida = sc.nextInt();
             if (codSaida >= 1 && codSaida <= 3) {
-                if (codSaida == 1) {
-                    saidaT = 'C';
-                } else if (codSaida == 2) {
-                    saidaT = 'F';
-                } else {
-                    saidaT = 'K';
-                }
+                if (codSaida == 1) {saidaT = 'C';}
+                else if (codSaida == 2) {saidaT = 'F';}
+                else {saidaT = 'K';}
             } else {
                 System.out.println("Erro de entrada de dados. Reinicie o Programa. ");
                 return;
