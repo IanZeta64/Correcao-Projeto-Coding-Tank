@@ -61,12 +61,10 @@ public static void main(String[] args) {
             temp = sc.nextDouble();
             temperatura[i] = temp;
             convertida[i] = converterTemperatura(temp, codEntrada, codSaida, entradaT, saidaT);
-            System.out.printf("Valor digitado em %c: %.2f º%c%n", entradaT, temp, entradaT);
-            System.out.printf("Valor convertido para %c: %.2f º%c%n", saidaT, convertida[i], saidaT);
-        }
-        for (int i = 0; i < convertida.length; i++) {
             somaEntrada += temperatura[i];
             somaSaida += convertida[i];
+            System.out.printf("Valor digitado em %c: %.2f º%c%n", entradaT, temp, entradaT);
+            System.out.printf("Valor convertido para %c: %.2f º%c%n", saidaT, convertida[i], saidaT);
         }
         mediaEntrada = somaEntrada / n;
         mediaSaida = somaSaida / n;
